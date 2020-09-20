@@ -14,10 +14,13 @@ import java.util.Optional;
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
     @Query("SELECT res FROM Reservation res JOIN res.room roo WHERE roo.id = :id ")
-    Optional<List<Reservation>> findAllByRoomId(@Param("id") Long Id);
+    List<Reservation> findAllByRoomId(@Param("id") Long id);
 
 
     @Query("SELECT res FROM Reservation res JOIN res.room roo JOIN res.person per WHERE roo.id = :roomId and per.id = :personId and res.startReservationDate = :startDate")
     Optional<Reservation> findByRoomIdPersonIdAndStartDate(@Param("roomId") Long roomId, @Param("personId") Long personId, @Param("startDate") LocalDate startDate);
+
+    @Query("SELECT res FROM Reservation res JOIN res.person")
+    List<Reservation> findAllReservationWithPerson();
 
 }

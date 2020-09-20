@@ -8,7 +8,8 @@ import lombok.RequiredArgsConstructor;
 public enum BussinesMessage {
 
     ROOM_BOOKED("Room booked successfully."),
-    RESERVATION_DELETE("Reservation delete successfully.");
+    RESERVATION_DELETE("Reservation delete successfully."),
+    SENDER_REMINDER("Sender Reminder run successfully.");
 
     private final String message;
 }

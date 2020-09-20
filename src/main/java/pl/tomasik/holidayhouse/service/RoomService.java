@@ -18,7 +18,7 @@ public class RoomService {
 
     private final RoomRepository roomRepository;
 
-    public RoomResultDto findByRoomNumber(Long id) {
+    public RoomResultDto findByRoomId(Long id) {
         return roomRepository.findById(id)
                 .map(RoomResultDto::of)
                 .orElseThrow(() -> new IllegalArgumentException("Room id not found:" + id));

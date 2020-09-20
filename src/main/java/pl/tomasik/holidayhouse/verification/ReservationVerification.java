@@ -21,9 +21,11 @@ public class ReservationVerification {
 
     public void validate(Long roomId, LocalDate startReservationDate) {
 
-        List<Reservation> reservationList = reservationRepository.findAllByRoomId(roomId)
-                .orElseThrow(() -> new IllegalArgumentException("No booking found for id:" + roomId));
+        List<Reservation> reservationList = reservationRepository.findAllByRoomId(roomId);
 
+        if (reservationList.isEmpty()) {
+            throw new IllegalArgumentException("No booking found for id:" + roomId);
+        }
         boolean isRoomReserved = reservationList.stream()
                 .anyMatch(r -> CompareDateUtils.isDateBetweenRange(startReservationDate, r.getStartReservationDate(), r.getEndReservationDate()));
 
