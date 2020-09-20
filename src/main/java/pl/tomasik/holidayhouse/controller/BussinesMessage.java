@@ -7,7 +7,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum BussinesMessage {
 
-    ROOM_BOOKED("Room booked successfully.");
+    ROOM_BOOKED("Room booked successfully."),
+    RESERVATION_DELETE("Reservation delete successfully.");
 
     private final String message;
 }

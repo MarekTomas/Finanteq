@@ -29,12 +29,12 @@ public class Room {
 
     @Column(name = "ROOM_NUMBER")
     @NonNull
-    private int roomNumber;
+    private String roomNumber;
 
     @Column(name = "NUMBER_OF_BEDS")
     @NonNull
-    private int numberOfBeds;
+    private String numberOfBeds;
 
-    @OneToMany(mappedBy = "roomNumber")
+    @OneToMany(mappedBy = "room")
     private List<Reservation> conectedReservation;
 }

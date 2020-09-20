@@ -4,19 +4,21 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pl.tomasik.holidayhouse.facade.DeleteReservationfacade;
+import pl.tomasik.holidayhouse.facade.DeleteReservationFacade;
 import pl.tomasik.holidayhouse.facade.ReservationFacade;
-import pl.tomasik.holidayhouse.factory.RoomFactory;
-import pl.tomasik.holidayhouse.model.Room;
+import pl.tomasik.holidayhouse.service.RoomService;
+import pl.tomasik.holidayhouse.model.dto.RoomResultDto;
 
 import java.time.LocalDate;
 import java.util.List;
 
+import static pl.tomasik.holidayhouse.controller.BussinesMessage.RESERVATION_DELETE;
 import static pl.tomasik.holidayhouse.controller.BussinesMessage.ROOM_BOOKED;
 
 @RestController
@@ -24,29 +26,33 @@ import static pl.tomasik.holidayhouse.controller.BussinesMessage.ROOM_BOOKED;
 @RequiredArgsConstructor
 public class HolidayHouseController {
 
-    private final RoomFactory roomFactory;
+    private final RoomService roomService;
     private final ReservationFacade reservationFacade;
-    private final DeleteReservationfacade deleteReservationfacade;
+    private final DeleteReservationFacade deleteReservationfacade;
 
-    @GetMapping()
-    public ResponseEntity<List<Room>> roomsList(@RequestParam Long roomNumber ) {
-        return new ResponseEntity(roomFactory.findById(roomNumber), HttpStatus.OK);
+    @GetMapping("/{id}")
+    public ResponseEntity<RoomResultDto> getRoomBy(@PathVariable Long id ) {
+        return new ResponseEntity(roomService.findByRoomNumber(id), HttpStatus.OK);
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<Room>> roomsList() {
-        return new ResponseEntity(roomFactory.findAllRooms(), HttpStatus.OK);
+    public ResponseEntity<List<RoomResultDto>> getAllRooms() {
+        return new ResponseEntity(roomService.findAllRooms(), HttpStatus.OK);
     }
 
-    @PutMapping
-    public ResponseEntity<Room> roomReservation(@RequestParam int roomNumber, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startReservationDate, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endReservationDate ) {
-        reservationFacade.execute(roomNumber,startReservationDate,endReservationDate);
+    @PutMapping("/{roomId}/{startReservationDate}/{endReservationDate}/{personId}")
+    public ResponseEntity<RoomResultDto> roomReservation(@PathVariable Long roomId,
+                                                @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startReservationDate,
+                                                @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endReservationDate,
+                                                         @PathVariable Long personId) {
+        reservationFacade.execute(roomId,startReservationDate,endReservationDate,personId);
         return new ResponseEntity(ROOM_BOOKED.getMessage(), HttpStatus.OK);
     }
 
-   /* @PostMapping("/room/{id}")
-    public ResponseEntity<Void> deleteRoomReserwation() {
-        return new ResponseEntity(OPERACJA_ZAKONCZONA_POPRAWNIE.getMessage(), HttpStatus.OK);
-    }*/
+    @DeleteMapping("/room/{id}")
+    public ResponseEntity<Void> deleteRoomReservation(@PathVariable Long roomId,@PathVariable Long personId) {
+        deleteReservationfacade.execute(roomId,personId);
+        return new ResponseEntity(RESERVATION_DELETE.getMessage(), HttpStatus.OK);
+    }
 
 }

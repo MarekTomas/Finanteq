@@ -14,9 +14,8 @@ public class ReservationFacade {
     private final ReservationFactory reservationFactory;
     private final ReservationVerification reservationVerification;
 
-    public void execute(int roomNnumber, LocalDate startReservationDate, LocalDate endReservationDate) {
-        reservationFactory.createReservation(roomNnumber, startReservationDate, endReservationDate);
+    public void execute(Long roomId, LocalDate startReservationDate, LocalDate endReservationDate, Long personId) {
+        reservationVerification.validate(roomId, startReservationDate);
+        reservationFactory.createReservation(roomId, startReservationDate, endReservationDate, personId);
     }
-
-
 }
