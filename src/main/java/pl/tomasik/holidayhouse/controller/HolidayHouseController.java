@@ -49,9 +49,10 @@ public class HolidayHouseController {
         return new ResponseEntity(ROOM_BOOKED.getMessage(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/room/{id}")
-    public ResponseEntity<Void> deleteRoomReservation(@PathVariable Long roomId,@PathVariable Long personId) {
-        deleteReservationfacade.execute(roomId,personId);
+    @DeleteMapping("/reservation/{roomId}/{personId}/{startReservationDate}")
+    public ResponseEntity<Void> deleteRoomReservation(@PathVariable Long roomId,@PathVariable Long personId,
+                                                      @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startReservationDate) {
+        deleteReservationfacade.execute(roomId,personId,startReservationDate);
         return new ResponseEntity(RESERVATION_DELETE.getMessage(), HttpStatus.OK);
     }
 
