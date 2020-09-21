@@ -9,10 +9,6 @@ import pl.tomasik.holidayhouse.utils.CompareDateUtils;
 import java.time.LocalDate;
 import java.util.List;
 
-/**
- * Class is used to check if the room has booked on this date
- */
-
 @Component
 @RequiredArgsConstructor
 public class ReservationVerification {

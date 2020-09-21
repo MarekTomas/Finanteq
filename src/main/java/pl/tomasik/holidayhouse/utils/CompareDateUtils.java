@@ -2,9 +2,6 @@ package pl.tomasik.holidayhouse.utils;
 
 import java.time.LocalDate;
 
-/**
- * Class used for comparing dates
- */
 public class CompareDateUtils {
 
     public static boolean isDateBetweenRange(LocalDate startDateFromParam, LocalDate startDate, LocalDate endDate) {

@@ -7,9 +7,6 @@ import pl.tomasik.holidayhouse.repository.ReservationRepository;
 
 import java.time.LocalDate;
 
-/**
- * Class is used to check if the reservation cen be delete
- */
 @Component
 @RequiredArgsConstructor
 public class DeleteReservationFactory {

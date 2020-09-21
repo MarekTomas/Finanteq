@@ -2,9 +2,8 @@ package pl.tomasik.holidayhouse.facade;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import pl.tomasik.holidayhouse.model.Reservation;
-import pl.tomasik.holidayhouse.service.DeleteReservationService;
 import pl.tomasik.holidayhouse.factory.DeleteReservationFactory;
+import pl.tomasik.holidayhouse.service.DeleteReservationService;
 
 import java.time.LocalDate;
 

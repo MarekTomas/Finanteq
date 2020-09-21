@@ -11,9 +11,6 @@ import pl.tomasik.holidayhouse.repository.RoomRepository;
 
 import java.time.LocalDate;
 
-/**
- * Class used for create reservation
- */
 @Component
 @RequiredArgsConstructor
 public class ReservationFactory {
@@ -25,7 +22,7 @@ public class ReservationFactory {
 
     public Reservation createReservation(Long roomId, LocalDate startReservationDate, LocalDate endReservationDate, Long personId) {
 
-        Reservation reservation = new Reservation();
+        var reservation = new Reservation();
         reservation.setStartReservationDate(startReservationDate);
         reservation.setEndReservationDate(endReservationDate);
         reservation.setPerson(getPerson(personId));

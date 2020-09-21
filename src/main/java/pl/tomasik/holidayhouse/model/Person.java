@@ -2,6 +2,7 @@ package pl.tomasik.holidayhouse.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.springframework.lang.NonNull;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @ToString
 @Table(name = "PERSON")
 @NoArgsConstructor
@@ -40,6 +42,10 @@ public class Person {
     @Column(name = "PASSWORD")
     @NonNull
     private String password;
+
+    @Column(name = "ROLE")
+    @NonNull
+    private String role;
 
     @OneToMany(mappedBy = "person")
     private List<Reservation> reservationEntities;

@@ -5,11 +5,11 @@ INSERT INTO ROOM (ID, ROOM_NUMBER, NUMBER_OF_BEDS) VALUES (3,'3','3');
 INSERT INTO ROOM (ID, ROOM_NUMBER, NUMBER_OF_BEDS) VALUES (4,'4','3');
 INSERT INTO ROOM (ID, ROOM_NUMBER, NUMBER_OF_BEDS) VALUES (5,'5','4');
 
-INSERT INTO PERSON (ID, NAME, SURNAME, EMAIL,PASSWORD) VALUES (1,'John','Rambo','jr@gmail.com','password');
-INSERT INTO PERSON (ID, NAME, SURNAME, EMAIL,PASSWORD) VALUES (2,'Zbigniew','Json','zj@gmail.com','password');
-INSERT INTO PERSON (ID, NAME, SURNAME, EMAIL,PASSWORD) VALUES (3,'Beata','Byk','bb@gmail.com','password');
-INSERT INTO PERSON (ID, NAME, SURNAME, EMAIL,PASSWORD) VALUES (4,'Maciej','Niechciał','mn@gmail.com','password');
-INSERT INTO PERSON (ID, NAME, SURNAME, EMAIL,PASSWORD) VALUES (5,'Grzegorz','Kaczka','gk@gmail.com','password');
+INSERT INTO PERSON (ID, NAME, SURNAME, EMAIL,PASSWORD,ROLE) VALUES (1,'John','Rambo','jr@gmail.com','password','user');
+INSERT INTO PERSON (ID, NAME, SURNAME, EMAIL,PASSWORD,ROLE) VALUES (2,'Zbigniew','Json','zj@gmail.com','password','user');
+INSERT INTO PERSON (ID, NAME, SURNAME, EMAIL,PASSWORD,ROLE) VALUES (3,'Beata','Byk','bb@gmail.com','password','user');
+INSERT INTO PERSON (ID, NAME, SURNAME, EMAIL,PASSWORD,ROLE) VALUES (4,'Maciej','Niechciał','mn@gmail.com','password','user');
+INSERT INTO PERSON (ID, NAME, SURNAME, EMAIL,PASSWORD,ROLE) VALUES (5,'Grzegorz','Kaczka','gk@gmail.com','password','user');
 
 INSERT INTO RESERVATION(ID, START_RESREVATION_DATE, END_RESREVATION_DATE,PERSON_ID,ROOM_ID) values (1,parsedatetime('01/10/2020','DD/MM/YYYY'), parsedatetime('12/10/2020','DD/MM/YYYY'),1,1);
 INSERT INTO RESERVATION(ID, START_RESREVATION_DATE, END_RESREVATION_DATE,PERSON_ID,ROOM_ID) values (2,parsedatetime('15/10/2020','DD/MM/YYYY'), parsedatetime('24/10/2020','DD/MM/YYYY'),2,1);

@@ -8,10 +8,6 @@ import pl.tomasik.holidayhouse.repository.RoomRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Class used for find rooms
- */
-
 @Service
 @RequiredArgsConstructor
 public class RoomService {
