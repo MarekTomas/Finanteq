@@ -14,7 +14,7 @@ class RoomServiceTest extends Specification {
     def "should return room by id"() {
         setup:
             Long id = 1L
-            Room room = new Room(id: 1l, roomNumber: 1, numberOfBeds: 1, conectedReservation: [createListOfReservationStub()])
+            Room room = new Room(id: 1l, roomNumber: 1, numberOfBeds: 1, conectedReservation: [createReservationStub()])
         when:
             roomRepository.findById(id) >> Optional.of(room)
             sut.findByRoomId(id)
@@ -24,7 +24,7 @@ class RoomServiceTest extends Specification {
 
     def "should return all room"() {
         setup:
-            Room room = new Room(id: 1l, roomNumber: 1, numberOfBeds: 1, conectedReservation: [createListOfReservationStub()])
+            Room room = new Room(id: 1l, roomNumber: 1, numberOfBeds: 1, conectedReservation: [createReservationStub()])
         when:
             roomRepository.findAll() >> [room]
             sut.findAllRooms()
@@ -32,7 +32,7 @@ class RoomServiceTest extends Specification {
             noExceptionThrown()
     }
 
-    private static Reservation createListOfReservationStub() {
+    private static Reservation createReservationStub() {
         Reservation reservation = new Reservation()
         reservation.setId(1L)
         reservation.setStartReservationDate(LocalDate.now().plusDays(20))

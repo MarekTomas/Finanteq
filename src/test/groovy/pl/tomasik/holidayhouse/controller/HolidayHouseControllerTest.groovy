@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import pl.tomasik.holidayhouse.facade.DeleteReservationFacade
 import pl.tomasik.holidayhouse.facade.ReservationFacade
+import pl.tomasik.holidayhouse.model.dto.DeleteReservationDto
+import pl.tomasik.holidayhouse.model.dto.RoomReservationDto
 import pl.tomasik.holidayhouse.model.dto.ReservationResultDto
 import pl.tomasik.holidayhouse.model.dto.RoomResultDto
 import pl.tomasik.holidayhouse.sendreminder.ReservationChecker
@@ -54,15 +56,11 @@ class HolidayHouseControllerTest extends Specification {
 
     def "should return room reservation"() {
         setup:
-            Long roomId = 1L
-            Long personId = 1L
-            LocalDate startDate = LocalDate.of(2030, 10, 10)
-            LocalDate endDate = LocalDate.of(2030, 10, 12)
             ResponseEntity expectedResult = new ResponseEntity(ROOM_BOOKED.getMessage(), HttpStatus.OK)
 
         when:
-            reservationFacade.execute(roomId, startDate, endDate, personId)
-            def result = sut.roomReservation(roomId, startDate, endDate, personId)
+            reservationFacade.execute(createReservationDto())
+            def result = sut.roomReservation(createReservationDto())
 
         then:
             result == expectedResult
@@ -70,14 +68,12 @@ class HolidayHouseControllerTest extends Specification {
 
     def "should delete reservation"() {
         setup:
-            Long roomId = 1L
-            Long personId = 1L
-            LocalDate startDate = LocalDate.of(2030, 10, 10)
+
             ResponseEntity expectedResult = new ResponseEntity(RESERVATION_DELETE.getMessage(), HttpStatus.OK)
 
         when:
-            deleteReservationfacade.execute(roomId, personId, startDate)
-            def result = sut.deleteRoomReservation(roomId, personId, startDate)
+            deleteReservationfacade.execute(createDeleteReservationDto())
+            def result = sut.deleteRoomReservation(createDeleteReservationDto())
 
         then:
             result == expectedResult
@@ -107,6 +103,22 @@ class HolidayHouseControllerTest extends Specification {
         return ReservationResultDto.builder()
                 .startReservationDate(LocalDate.of(2030, 10, 10))
                 .endReservationDate(LocalDate.of(2030, 10, 12))
+                .build()
+    }
+    private static RoomReservationDto createReservationDto() {
+        return RoomReservationDto.builder()
+                .startReservationDate(LocalDate.of(2030, 10, 10))
+                .endReservationDate(LocalDate.of(2030, 10, 12))
+                .personId(1L)
+                .roomId(1L)
+                .build()
+    }
+
+    private static DeleteReservationDto createDeleteReservationDto() {
+        return DeleteReservationDto.builder()
+                .startReservationDate(LocalDate.of(2030, 10, 10))
+                .personId(1L)
+                .roomId(1L)
                 .build()
     }
 }

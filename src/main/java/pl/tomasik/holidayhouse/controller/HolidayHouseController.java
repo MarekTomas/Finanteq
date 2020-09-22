@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.tomasik.holidayhouse.facade.DeleteReservationFacade;
 import pl.tomasik.holidayhouse.facade.ReservationFacade;
+import pl.tomasik.holidayhouse.model.dto.DeleteReservationDto;
+import pl.tomasik.holidayhouse.model.dto.RoomReservationDto;
 import pl.tomasik.holidayhouse.model.dto.RoomResultDto;
 import pl.tomasik.holidayhouse.sendreminder.ReservationChecker;
 import pl.tomasik.holidayhouse.service.RoomService;
@@ -44,19 +46,15 @@ public class HolidayHouseController {
         return new ResponseEntity(roomService.findAllRooms(), HttpStatus.OK);
     }
 
-    @PutMapping("/{roomId}/{startReservationDate}/{endReservationDate}/{personId}")
-    public ResponseEntity<RoomResultDto> roomReservation(@PathVariable Long roomId,
-                                                         @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startReservationDate,
-                                                         @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endReservationDate,
-                                                         @PathVariable Long personId) {
-        reservationFacade.execute(roomId, startReservationDate, endReservationDate, personId);
+    @PostMapping("/reservation")
+    public ResponseEntity<RoomResultDto> roomReservation(@RequestBody RoomReservationDto roomReservationDto) {
+        reservationFacade.execute(roomReservationDto);
         return new ResponseEntity(ROOM_BOOKED.getMessage(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/reservation/{roomId}/{personId}/{startReservationDate}")
-    public ResponseEntity<Void> deleteRoomReservation(@PathVariable Long roomId, @PathVariable Long personId,
-                                                      @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startReservationDate) {
-        deleteReservationfacade.execute(roomId, personId, startReservationDate);
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteRoomReservation(@RequestBody DeleteReservationDto deleteReservationDto) {
+        deleteReservationfacade.execute(deleteReservationDto);
         return new ResponseEntity(RESERVATION_DELETE.getMessage(), HttpStatus.OK);
     }
 

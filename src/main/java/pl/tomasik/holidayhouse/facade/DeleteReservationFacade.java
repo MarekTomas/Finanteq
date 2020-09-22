@@ -2,20 +2,20 @@ package pl.tomasik.holidayhouse.facade;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import pl.tomasik.holidayhouse.factory.DeleteReservationFactory;
+import pl.tomasik.holidayhouse.model.Reservation;
+import pl.tomasik.holidayhouse.model.dto.DeleteReservationDto;
+import pl.tomasik.holidayhouse.service.DeleteReservationExecuteService;
 import pl.tomasik.holidayhouse.service.DeleteReservationService;
-
-import java.time.LocalDate;
 
 @Component
 @RequiredArgsConstructor
 public class DeleteReservationFacade {
 
-    private final DeleteReservationFactory deleteReservationFactory;
     private final DeleteReservationService deleteReservationService;
+    private final DeleteReservationExecuteService deleteReservationExecuteService;
 
-    public void execute(Long roomId, Long personId, LocalDate startReservationDate) {
-        var reservation = deleteReservationFactory.getReservation(roomId, personId, startReservationDate);
-        deleteReservationService.execute(reservation.getId());
+    public void execute(DeleteReservationDto deleteReservationDto) {
+        Reservation reservation = deleteReservationService.getReservation(deleteReservationDto);
+        deleteReservationExecuteService.execute(reservation.getId());
     }
 }

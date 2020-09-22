@@ -1,32 +1,31 @@
-package pl.tomasik.holidayhouse.factory;
+package pl.tomasik.holidayhouse.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.tomasik.holidayhouse.model.Person;
 import pl.tomasik.holidayhouse.model.Reservation;
 import pl.tomasik.holidayhouse.model.Room;
+import pl.tomasik.holidayhouse.model.dto.RoomReservationDto;
 import pl.tomasik.holidayhouse.repository.PersonRepository;
 import pl.tomasik.holidayhouse.repository.ReservationRepository;
 import pl.tomasik.holidayhouse.repository.RoomRepository;
 
-import java.time.LocalDate;
-
 @Component
 @RequiredArgsConstructor
-public class ReservationFactory {
+public class ReservationService {
 
     private final RoomRepository roomRepository;
     private final PersonRepository personRepository;
     private final ReservationRepository reservationRepository;
 
 
-    public Reservation createReservation(Long roomId, LocalDate startReservationDate, LocalDate endReservationDate, Long personId) {
+    public Reservation createReservation(RoomReservationDto roomReservationDto) {
 
         var reservation = new Reservation();
-        reservation.setStartReservationDate(startReservationDate);
-        reservation.setEndReservationDate(endReservationDate);
-        reservation.setPerson(getPerson(personId));
-        reservation.setRoom(getRoom(roomId));
+        reservation.setStartReservationDate(roomReservationDto.getStartReservationDate());
+        reservation.setEndReservationDate(roomReservationDto.getEndReservationDate());
+        reservation.setPerson(getPerson(roomReservationDto.getPersonId()));
+        reservation.setRoom(getRoom(roomReservationDto.getRoomId()));
         return reservationRepository.save(reservation);
     }
 
