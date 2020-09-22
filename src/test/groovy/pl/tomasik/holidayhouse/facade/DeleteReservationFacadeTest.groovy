@@ -10,7 +10,7 @@ import java.time.LocalDate
 
 class DeleteReservationFacadeTest extends Specification {
 
-    DeleteReservationService deleteReservationService = Mock()
+    DeleteReservationService deleteReservationService = Stub()
     DeleteReservationExecuteService deleteReservationExecuteService = Mock()
 
     DeleteReservationFacade sut = [deleteReservationService, deleteReservationExecuteService]
