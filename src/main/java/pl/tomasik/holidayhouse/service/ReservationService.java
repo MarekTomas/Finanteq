@@ -1,7 +1,7 @@
 package pl.tomasik.holidayhouse.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import pl.tomasik.holidayhouse.model.Person;
 import pl.tomasik.holidayhouse.model.Reservation;
 import pl.tomasik.holidayhouse.model.Room;
@@ -10,7 +10,7 @@ import pl.tomasik.holidayhouse.repository.PersonRepository;
 import pl.tomasik.holidayhouse.repository.ReservationRepository;
 import pl.tomasik.holidayhouse.repository.RoomRepository;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class ReservationService {
 

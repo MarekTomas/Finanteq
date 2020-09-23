@@ -22,7 +22,6 @@ public class RoomResultDto {
                 .numberOfBeds(room.getNumberOfBeds())
                 .reservationResultDtos(createReservations(room.getConectedReservation()))
                 .build();
-
     }
 
     private static List<ReservationResultDto> createReservations(List<Reservation> reservationEntities){

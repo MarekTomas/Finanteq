@@ -1,12 +1,12 @@
 package pl.tomasik.holidayhouse.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import pl.tomasik.holidayhouse.model.Reservation;
 import pl.tomasik.holidayhouse.model.dto.DeleteReservationDto;
 import pl.tomasik.holidayhouse.repository.ReservationRepository;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class DeleteReservationService {
 
