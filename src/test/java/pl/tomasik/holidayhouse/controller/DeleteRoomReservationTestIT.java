@@ -3,7 +3,6 @@ package pl.tomasik.holidayhouse.controller;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import pl.tomasik.holidayhouse.facade.ReservationFacade;
 import pl.tomasik.holidayhouse.model.Reservation;
 import pl.tomasik.holidayhouse.model.dto.RoomReservationDto;
 import pl.tomasik.holidayhouse.repository.ReservationRepository;
@@ -15,9 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class DeleteRoomReservationTestIT {
-
     @Autowired
-    ReservationFacade reservationFacade;
+    HolidayHouseController holidayHouseController;
 
     @Autowired
     ReservationService reservationService;
@@ -28,7 +26,8 @@ public class DeleteRoomReservationTestIT {
     @Test
     void shouldSaveRoomReservation() {
         RoomReservationDto roomReservationDto = createRoomReservationDto();
-        reservationFacade.execute(roomReservationDto);
+        holidayHouseController.roomReservation(roomReservationDto);
+
         Reservation reservation = reservationService.createReservation(roomReservationDto);
         Reservation reservationResult = repository.save(reservation);
         assertThat(reservationResult.getStartReservationDate()).isEqualTo(roomReservationDto.getStartReservationDate());
@@ -41,8 +40,8 @@ public class DeleteRoomReservationTestIT {
         return RoomReservationDto.builder()
                 .roomId(1L)
                 .personId(1L)
-                .startReservationDate(LocalDate.of(2030, 10, 10))
-                .endReservationDate(LocalDate.of(2030, 10, 12))
+                .startReservationDate(LocalDate.now())
+                .endReservationDate(LocalDate.now().plusDays(10))
                 .build();
     }
 }

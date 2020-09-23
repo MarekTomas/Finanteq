@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().disable();
         http.authorizeRequests()
                 .antMatchers("/api/room/reservation/*").hasRole("USER")
+                .antMatchers("/api/room/delete/*").hasRole("USER")
                 .antMatchers("/api/room/senderReminder").hasRole("ADMIN")
                 .and()
                 .formLogin();

@@ -1,7 +1,6 @@
 package pl.tomasik.holidayhouse.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,7 +18,6 @@ import pl.tomasik.holidayhouse.model.dto.RoomResultDto;
 import pl.tomasik.holidayhouse.sendreminder.ReservationChecker;
 import pl.tomasik.holidayhouse.service.RoomService;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static pl.tomasik.holidayhouse.controller.BussinesMessage.RESERVATION_DELETE;
@@ -38,16 +36,16 @@ public class HolidayHouseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<RoomResultDto> getRoomBy(@PathVariable Long id) {
-        return new ResponseEntity(roomService.findByRoomId(id), HttpStatus.OK);
+        return new ResponseEntity<>(roomService.findByRoomId(id), HttpStatus.OK);
     }
 
     @GetMapping("/list")
     public ResponseEntity<List<RoomResultDto>> getAllRooms() {
-        return new ResponseEntity(roomService.findAllRooms(), HttpStatus.OK);
+        return new ResponseEntity<>(roomService.findAllRooms(), HttpStatus.OK);
     }
 
     @PostMapping("/reservation")
-    public ResponseEntity<RoomResultDto> roomReservation(@RequestBody RoomReservationDto roomReservationDto) {
+    public ResponseEntity<Void> roomReservation(@RequestBody RoomReservationDto roomReservationDto) {
         reservationFacade.execute(roomReservationDto);
         return new ResponseEntity(ROOM_BOOKED.getMessage(), HttpStatus.OK);
     }
@@ -63,5 +61,4 @@ public class HolidayHouseController {
         reservationChecker.execute();
         return new ResponseEntity(SENDER_REMINDER.getMessage(), HttpStatus.OK);
     }
-
 }
